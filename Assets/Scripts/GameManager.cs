@@ -30,18 +30,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        /*if( player.isDead )
-        {
-            gameOverCountdown.gameObject.SetActive(true);
-            countTimer -= Time.unscaledDeltaTime;
-        }
-
-        gameOverCountdown.text = "Restarting in " + (countTimer).ToString("0");
-
-        if(countTimer < 0)
-        {
-            RestartGame();
-        }*/
     }
 
     public void StartGame()
