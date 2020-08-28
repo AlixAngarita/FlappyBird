@@ -14,15 +14,12 @@ public class GameManager : MonoBehaviour
     public GameObject FinalScore;
     public GameObject BestScore;
 
-    public Text gameOverCountdown;
-    public float countTimer = 5;
     private int finalScore = 0;
     private int bestScore;
 
     // Start is called before the first frame update
     void Start()
     {
-        gameOverCountdown.gameObject.SetActive(false);
         Time.timeScale = 0;
         Score.SetActive(false);
         startView.SetActive(false);
