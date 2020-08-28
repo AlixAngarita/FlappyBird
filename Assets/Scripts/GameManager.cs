@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public Text gameOverCountdown;
     public float countTimer = 5;
     private int finalScore = 0;
+    private int bestScore;
 
     // Start is called before the first frame update
     void Start()
@@ -69,11 +70,16 @@ public class GameManager : MonoBehaviour
         Score.SetActive(false);
         FinalScore finalScoreScript = FinalScore.GetComponent<FinalScore>();
         finalScoreScript.score = finalScore;
+        bestScore = PlayerPrefs.GetInt("Player Best Score");
+        if(finalScore > bestScore)
+        {
+            PlayerPrefs.SetInt("Player Best Score", finalScore);
+        } 
         gameOverPanel.SetActive(true);
 
         //Best score
         FinalScore bestScoreScript = BestScore.GetComponent<FinalScore>();
-        bestScoreScript.score = finalScore;
+        bestScoreScript.score = PlayerPrefs.GetInt("Player Best Score");
     }
 
     public void RestartGame()
