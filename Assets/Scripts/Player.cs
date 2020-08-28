@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    //sounds
+    public AudioSource wingsSound;
+    public AudioSource pointSound;
+    public AudioSource hitSound;
+
     public float velocity = 2.4f;
     private Rigidbody2D rigidbody;
     public GameManager gameManager;
@@ -25,21 +30,24 @@ public class Player : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             rigidbody.velocity = Vector2.up * velocity;
+            wingsSound.Play();
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision) //Hits a pipe
     {
+        hitSound.Play();
         isDead = true;
         gameManager.GameOver();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision) //Scores a point
     {
-        scoreValue++;
+        /*scoreValue++;
         if (score != null) { 
             score.text = scoreValue.ToString();
-        }
+        }*/
+        pointSound.Play();
         gameManager.UpdateScore();
     }
 }

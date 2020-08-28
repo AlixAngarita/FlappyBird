@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     public GameObject FinalScore;
     public GameObject BestScore;
 
+    //sound
+    public AudioSource buttonSound;
+
     private int finalScore = 0;
     private int bestScore;
 
@@ -26,12 +29,9 @@ public class GameManager : MonoBehaviour
         gameOverPanel.SetActive(false);
     }
 
-    private void Update()
-    {
-    }
-
     public void StartGame()
     {
+        buttonSound.Play();
         startPanel.SetActive(false);
         Score.SetActive(true);
         startView.SetActive(true);
@@ -72,6 +72,8 @@ public class GameManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("Player Best Score", finalScore);
         } 
+        
+        buttonSound.Play();
         gameOverPanel.SetActive(true);
 
         //Best score
