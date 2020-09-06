@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class FinalScore : MonoBehaviour {
     public int score { get; set; }
 
-    // Use this for initialization
     void Start () {
         (Tens.gameObject as GameObject).SetActive (false);
         (Hundreds.gameObject as GameObject).SetActive (false);
@@ -14,7 +13,6 @@ public class FinalScore : MonoBehaviour {
         score = 0;
     }
 
-    // Update is called once per frame
     void Update () {
         if (previousScore != score) {
             if (score < 10) {

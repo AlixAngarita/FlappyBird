@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator waitForClick()
     {
         bool done = false;
-        while(!done) // essentially a "while true", but with a bool to break out naturally
+        while(!done) // waits for mouse button down
         {
             if(Input.GetMouseButtonDown(0))
             {
@@ -50,15 +50,15 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = 1;
                 startView.SetActive(false);
             }
-            yield return null; // wait until next frame, then continue execution from here (loop continues)
+            yield return null;
         }
     }
 
-    public void UpdateScore()
+    public void UpdateScore(int points)
     {
         Score scoreScript = Score.GetComponent<Score>();
-        scoreScript.score++;
-        finalScore++;
+        scoreScript.score += points;
+        finalScore += points;
     }
 
     public void GameOver()

@@ -12,42 +12,52 @@ public class Player : MonoBehaviour
 
     public float velocity = 2.4f;
     private Rigidbody2D rigidbody;
+    private Collider2D m_Collider;
     public GameManager gameManager;
-    public bool isDead = false;
-    public Text score;
-    private int scoreValue = 0;
+    private bool isDead = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
-        //score = GetComponent<Text>();
+        m_Collider = GetComponent<Collider2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(!isDead && Input.GetMouseButtonDown(0))
         {
             rigidbody.velocity = Vector2.up * velocity;
             wingsSound.Play();
+        }
+        if(isDead)
+        {
+            Time.timeScale = 0.8f;
+            if(this.transform.position.y <= -0.64)
+            {
+                gameManager.GameOver();
+            }
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision) //Hits a pipe
     {
-        hitSound.Play();
-        isDead = true;
-        gameManager.GameOver();
+        if(collision.gameObject.tag != "limit")
+        {
+            this.transform.Rotate(0.0f, 0.0f, -90.0f, Space.Self);
+            m_Collider.enabled = false;
+            hitSound.Play();
+            isDead = true;  
+        } 
     }
 
     private void OnTriggerEnter2D(Collider2D collision) //Scores a point
     {
-        /*scoreValue++;
-        if (score != null) { 
-            score.text = scoreValue.ToString();
-        }*/
+        int points = 1;
+        if(collision.gameObject.tag == "extraPoint"){
+            collision.gameObject.SetActive (false);
+            points = 2;
+        }
         pointSound.Play();
-        gameManager.UpdateScore();
+        gameManager.UpdateScore(points);
     }
 }
